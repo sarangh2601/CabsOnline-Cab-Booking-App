@@ -6,6 +6,8 @@ import About from './pages/About.jsx';
 import Booking from './pages/Booking.jsx';
 import Pricing from './pages/Pricing.jsx';
 import Contact from './pages/Contact.jsx';
+import SignUp from './pages/SignUp.jsx';
+import Login from './pages/Login.jsx';
 
 function App() {
   return (
@@ -15,10 +17,12 @@ function App() {
         <main className="flex-grow pt-16">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
             {/* <Route path="/about" element={<About />} />
             <Route path="/booking" element={<Booking />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/contact" element={<Contact />} /> */}
+            <Route path="/pricing" element={<Pricing />} /> */}
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
         <Footer />

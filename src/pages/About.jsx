@@ -12,7 +12,7 @@ export default function About() {
     {
       title: 'Safety First',
       description: 'We prioritize the safety of our passengers and drivers with advanced security features and continuous training programs.',
-      color: 'from-blue-500 to-blue-600',
+      color: 'from-blue-600 to-blue-600',
     },
     {
       title: 'Reliability',
@@ -22,7 +22,7 @@ export default function About() {
     {
       title: 'Affordability',
       description: 'Quality service at competitive prices. We believe everyone deserves access to safe, reliable transportation.',
-      color: 'from-blue-400 to-blue-500',
+      color: 'from-blue-400 to-blue-600',
     },
     {
       title: 'Community',

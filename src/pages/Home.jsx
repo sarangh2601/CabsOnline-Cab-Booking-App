@@ -11,8 +11,8 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <Hero />
       <BookingWidget />
-      {/* <Features />
-      <HowItWorks />
+      <Features />
+      {/* <HowItWorks />
       <FleetShowcase />
       <Testimonials />
       <FAQ /> */}

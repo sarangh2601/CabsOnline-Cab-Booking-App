@@ -19,16 +19,16 @@ export default function Footer() {
               Your trusted partner for reliable, safe, and affordable ride-sharing services across the city.
             </p>
              <div className="flex gap-6">
-            <a href="#" className="w-10 h-10 bg-blue-800/20 hover:bg-blue-800 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110">
+            <a href="#" className="w-10 h-10 bg-blue-600/20 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110">
               <Facebook size={20} />
             </a>
-            <a href="#" className="w-10 h-10 bg-blue-800/20 hover:bg-blue-800 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110">
+            <a href="#" className="w-10 h-10 bg-blue-600/20 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110">
               <Twitter size={20} />
             </a>
-            <a href="#" className="w-10 h-10 bg-blue-800/20 hover:bg-blue-800 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110">
+            <a href="#" className="w-10 h-10 bg-blue-600/20 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110">
               <Instagram size={20} />
             </a>
-            <a href="#" className="w-10 h-10 bg-blue-800/20 hover:bg-blue-800 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110">
+            <a href="#" className="w-10 h-10 bg-blue-600/20 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110">
               <Linkedin size={20} />
             </a>
           </div>
@@ -37,11 +37,11 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold mb-6 border-b pb-1 w-[60%]">Company</h4>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-300 hover:text-blue-800 transition-colors text-sm">About Us</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-blue-800 transition-colors text-sm">Careers</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-blue-800 transition-colors text-sm">Blog</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-blue-800 transition-colors text-sm">Press</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-blue-800 transition-colors text-sm">Contact</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-blue-600 transition-colors text-sm">About Us</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-blue-600 transition-colors text-sm">Careers</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-blue-600 transition-colors text-sm">Blog</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-blue-600 transition-colors text-sm">Press</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-blue-600 transition-colors text-sm">Contact</a></li>
             </ul>
           </div>
 
@@ -62,7 +62,7 @@ export default function Footer() {
             </div>
         </div>
 
-        <div className="bg-gradient-to-r from-blue-800/20 to-[#F59E0B]/20 rounded-2xl p-6 md:p-8 mb-12 border border-blue-800">
+        <div className="bg-gradient-to-r from-blue-600/20 to-yellow-600/20 rounded-2xl p-6 md:p-8 mb-12 border border-blue-600">
   
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
     
@@ -83,10 +83,10 @@ export default function Footer() {
         <input
           type="email"
           placeholder="Enter your email"
-          className="w-full px-4 py-3 rounded-lg bg-transparent plaveholder:text-white focus:outline-none focus:ring-2 focus:ring-blue-800 text-sm border border-gray-300"
+          className="w-full px-4 py-3 rounded-lg bg-transparent plaveholder:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm border border-gray-300"
         />
 
-        <button className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-800 to-[#F59E0B] font-bold rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-sm whitespace-nowrap">
+        <button className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-600 to-yellow-600 font-bold rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-sm whitespace-nowrap">
           Subscribe
         </button>
 
@@ -100,14 +100,14 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row justify-center items-center gap-8">
           <p className="text-gray-100 text-center md:text-left text-sm">
-            © {currentYear} <span className='text-blue-800 font-semibold'>cabsonline.in </span> All rights reserved. Pioneering the future of urban transportation.
+            © {currentYear} <span className='text-blue-600 font-semibold'>cabsonline.in </span> All rights reserved. Pioneering the future of urban transportation.
           </p> 
         </div>
       </div>
 
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-blue-800 to-[#F59E0B] rounded-full flex items-center justify-center text-white hover:shadow-2xl transition-all duration-300 transform hover:scale-110 z-40"
+        className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-blue-600 to-yellow-600 rounded-full flex items-center justify-center text-white hover:shadow-2xl transition-all duration-300 transform hover:scale-110 z-40"
       >
         ↑
       </button>

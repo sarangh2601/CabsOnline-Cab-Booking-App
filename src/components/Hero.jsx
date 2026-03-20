@@ -10,12 +10,12 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid md:grid-cols-2 gap-6 items-center">
           <div className="space-y-6">
-            <div className="inline-block px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
+            <div className="inline-block px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold">
               ✨ Book Your Ride in Seconds
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-tight">
-              Your Journey, <span className="bg-gradient-to-r from-blue-800 to-[#F59E0B] bg-clip-text text-transparent">Our Priority</span>
+              Your Journey, <span className="bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">Our Priority</span>
             </h1>
 
             <p className="text-lg text-gray-600 leading-relaxed">
@@ -23,26 +23,26 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="group px-8 py-4 bg-gradient-to-r from-blue-800 to-[#F59E0B] text-white font-bold rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 text-sm">
+              <button className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-yellow-600 text-white font-bold rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 text-sm">
                 Book a Ride Now
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
               </button>
-              <button className="px-8 py-4 border-2 border-blue-800 text-blue-800 font-bold rounded-xl hover:bg-blue-800 hover:text-white transition-all duration-300 text-sm">
+              <button className="px-8 py-4 border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300 text-sm">
                 Learn More
               </button>
             </div>
 
             <div className="grid grid-cols-3 gap-4 pt-8 border-t border-gray-200">
               <div>
-                <div className="text-2xl font-bold text-blue-800">50K+</div>
+                <div className="text-2xl font-bold text-blue-600">50K+</div>
                 <div className="text-sm text-gray-600">Active Riders</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-blue-800">10K+</div>
+                <div className="text-2xl font-bold text-blue-600">10K+</div>
                 <div className="text-sm text-gray-600">Trusted Drivers</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-blue-800">98%</div>
+                <div className="text-2xl font-bold text-blue-600">98%</div>
                 <div className="text-sm text-gray-600">Satisfaction</div>
               </div>
             </div>
@@ -50,8 +50,8 @@ export default function Hero() {
 
           <div className="hidden md:flex items-center justify-center">
             <div className="relative w-full aspect-square">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-800/10 to-[#F59E0B]/10 rounded-3xl transform rotate-6"></div>
-              <div className="absolute inset-0 bg-gradient-to-tl from-[#F59E0B]/10 to-blue-800/10 rounded-3xl -rotate-6"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-yellow-600/10 rounded-3xl transform rotate-6"></div>
+              <div className="absolute inset-0 bg-gradient-to-tl from-yellow-600/10 to-blue-600/10 rounded-3xl -rotate-6"></div>
 
               <div className="absolute inset-4 bg-white rounded-2xl shadow-2xl flex flex-col items-center justify-center p-10 space-y-6">
                 <div className="flex items-center justify-center">
@@ -60,10 +60,10 @@ export default function Hero() {
                 <h3 className="text-2xl font-bold text-center">Premium Rides</h3>
                 <div className="space-y-2 w-full">
                   <div className="h-2 bg-gray-200 rounded-full w-full"></div>
-                  <div className="h-2 bg-blue-800/30 rounded-full w-5/6"></div>
+                  <div className="h-2 bg-blue-600/30 rounded-full w-5/6"></div>
                   <div className="h-2 bg-gray-200 rounded-full w-4/5"></div>
                 </div>
-                <button className="w-full py-3 bg-gradient-to-r from-blue-800 to-[#F59E0B] text-white rounded-lg font-semibold hover:shadow-lg transition-all text-sm">
+                <button className="w-full py-3 bg-gradient-to-r from-blue-600 to-yellow-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all text-sm">
                   Request Now
                 </button>
               </div>

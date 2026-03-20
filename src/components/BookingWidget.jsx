@@ -1,214 +1,223 @@
 import { useState, useEffect } from 'react';
-import { MapPin, Calendar, Clock, Users } from 'lucide-react';
+import { MapPin, Calendar, Clock, Users, Car } from 'lucide-react';
 
 export default function BookingWidget() {
-    const [tripType, setTripType] = useState('oneway');
+  const [tripType, setTripType] = useState('oneway');
+  const [pickupLocation, setPickupLocation] = useState('');
+  const [dropoffLocation, setDropoffLocation] = useState('');
+  const [city, setCity] = useState('');
+  const [date, setDate] = useState('');
+  const [returnDate, setReturnDate] = useState('');
+  const [time, setTime] = useState('');
+  const [carType, setCarType] = useState('');
 
-    const [pickupLocation, setPickupLocation] = useState('');
-    const [dropoffLocation, setDropoffLocation] = useState('');
-    const [city, setCity] = useState('');
+  // Generate time slots
+  const generateTimeSlots = () => {
+    const times = [];
+    for (let h = 0; h < 24; h++) {
+      for (let m = 0; m < 60; m += 15) {
+        const hour = h % 12 || 12;
+        const ampm = h < 12 ? 'AM' : 'PM';
+        const minute = m.toString().padStart(2, '0');
+        times.push(`${hour}:${minute} ${ampm}`);
+      }
+    }
+    return times;
+  };
+  const timeSlots = generateTimeSlots();
 
-    const [date, setDate] = useState('');
-    const [returnDate, setReturnDate] = useState('');
-    const [time, setTime] = useState('');
-    const [passengers, setPassengers] = useState('1');
+  // Set default date & time
+  useEffect(() => {
+    const now = new Date();
+    const currentDate = now.toISOString().split('T')[0];
+    setDate(currentDate);
 
-    // Generate time slots (15 min)
-    const generateTimeSlots = () => {
-        const times = [];
-        for (let h = 0; h < 24; h++) {
-            for (let m = 0; m < 60; m += 15) {
-                const hour = h % 12 || 12;
-                const ampm = h < 12 ? 'AM' : 'PM';
-                const minute = m.toString().padStart(2, '0');
-                times.push(`${hour}:${minute} ${ampm}`);
-            }
-        }
-        return times;
-    };
+    const minutes = Math.floor(now.getMinutes() / 15) * 15;
+    const hour = now.getHours() % 12 || 12;
+    const ampm = now.getHours() < 12 ? 'AM' : 'PM';
+    setTime(`${hour}:${minutes.toString().padStart(2, '0')} ${ampm}`);
+  }, []);
 
-    const timeSlots = generateTimeSlots();
+  const handleBooking = () => {
+    alert(`Booking Type: ${tripType}`);
+  };
 
-    // Set default date & time
-    useEffect(() => {
-        const now = new Date();
+  return (
+    <div className="mt-10 mb-10 px-4 sm:px-6 lg:px-8 relative z-20">
+      <div className="max-w-7xl mx-auto">
+        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-t-4 border-blue-400 bg-gradient-to-br from-yellow-50 via-white to-yellow-100">
+          
+          {/* Heading */}
+          <h2 className="text-3xl md:text-5xl font-bold text-center bg-gradient-to-r from-blue-900 via-black to-yellow-600 bg-clip-text text-transparent mb-12">
+            Where Do You <span className="bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent">Want to Go?</span>
+          </h2>
 
-        const currentDate = now.toISOString().split('T')[0];
-        setDate(currentDate);
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* LEFT SIDE - Booking Inputs */}
+            <div className="space-y-6 p-6 shadow-lg rounded-2xl bg-white/70">
+              
+              {/* Trip Type Tabs */}
+              <div className="flex w-full gap-3 mb-6">
+                {['oneway', 'round', 'local'].map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => setTripType(type)}
+                    className={`flex-1 text-center px-4 py-3 rounded-xl font-semibold text-sm md:text-base transition-colors
+                      ${tripType === type
+                        ? 'bg-gradient-to-r from-blue-500 to-yellow-500 text-white shadow-md'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                  >
+                    {type === 'oneway' ? 'One Way' : type === 'round' ? 'Round Trip' : 'Local'}
+                  </button>
+                ))}
+              </div>
 
-        const minutes = Math.floor(now.getMinutes() / 15) * 15;
-        const hour = now.getHours() % 12 || 12;
-        const ampm = now.getHours() < 12 ? 'AM' : 'PM';
-        const formattedTime = `${hour}:${minutes
-            .toString()
-            .padStart(2, '0')} ${ampm}`;
+              {/* Inputs */}
+              <div className="grid grid-cols-1 gap-4">
+                {(tripType === 'oneway' || tripType === 'round') && (
+                  <>
+                    <InputWithIcon
+                      icon={<MapPin className="text-blue-500" />}
+                      placeholder="Pickup Location"
+                      value={pickupLocation}
+                      onChange={setPickupLocation}
+                    />
+                    <InputWithIcon
+                      icon={<MapPin className="text-yellow-500" />}
+                      placeholder="Drop Location"
+                      value={dropoffLocation}
+                      onChange={setDropoffLocation}
+                    />
+                  </>
+                )}
 
-        setTime(formattedTime);
-    }, []);
+                {tripType === 'local' && (
+                  <>
+                    <InputWithIcon
+                      icon={<Users className="text-blue-500" />}
+                      placeholder="City"
+                      value={city}
+                      onChange={setCity}
+                    />
+                    <InputWithIcon
+                      icon={<MapPin className="text-yellow-500" />}
+                      placeholder="Pickup Location"
+                      value={pickupLocation}
+                      onChange={setPickupLocation}
+                    />
+                  </>
+                )}
 
-    const handleBooking = () => {
-        alert(`Booking Type: ${tripType}`);
-    };
+                <InputWithIcon
+                  icon={<Calendar className="text-blue-500" />}
+                  type="date"
+                  value={date}
+                  onChange={setDate}
+                />
 
-    return (
-        <div className="mt-10 mb-10 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-white to-blue-50 relative -mt-20 z-20">
-            <div className="max-w-7xl mx-auto">
-                <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border-t-4 border-blue-400">
-                    <h2 className="text-3xl md:text-5xl font-bold text-center bg-gradient-to-r from-blue-900 via-black to-[#F59E0B] bg-clip-text text-transparent mb-12">
-                        Where Do You Want to Go?
-                    </h2>
-                    <div className="grid md:grid-cols-2 gap-8 ">
+                {tripType === 'round' && (
+                  <InputWithIcon
+                    icon={<Calendar className="text-yellow-500" />}
+                    type="date"
+                    value={returnDate}
+                    onChange={setReturnDate}
+                  />
+                )}
 
-                        {/* LEFT SIDE */}
-                        <div className="space-y-4 p-6 shadow-lg">
+                <SelectWithIcon
+                  icon={<Clock className="text-blue-500" />}
+                  options={timeSlots}
+                  value={time}
+                  onChange={setTime}
+                />
 
-                            {/* 🔥 Trip Type Tabs - One Line Without Scroll */}
-                            <div className="flex w-full gap-2 mb-8">
-                                {['oneway', 'round', 'local'].map((type) => (
-                                    <button
-                                        key={type}
-                                        onClick={() => setTripType(type)}
-                                        className={`flex-1 text-center px-2 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-md sm:rounded-lg font-medium sm:font-semibold text-xs sm:text-sm md:text-base transition-all duration-300 border ${tripType === type
-                                                ? 'bg-black text-white shadow-md'
-                                                : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                                            }`}
-                                    >
-                                        {type === 'oneway'
-                                            ? 'One Way'
-                                            : type === 'round'
-                                                ? 'Round Trip'
-                                                : 'Local'}
-                                    </button>
-                                ))}
-                            </div>
-
-
-                            {/* One Way & Round Trip */}
-                            {(tripType === 'oneway' || tripType === 'round') && (
-                                <>
-                                    <input
-                                        type="text"
-                                        placeholder="Pickup Location"
-                                        value={pickupLocation}
-                                        onChange={(e) => setPickupLocation(e.target.value)}
-                                        className="input"
-                                    />
-
-                                    <input
-                                        type="text"
-                                        placeholder="Drop Location"
-                                        value={dropoffLocation}
-                                        onChange={(e) => setDropoffLocation(e.target.value)}
-                                        className="input"
-                                    />
-                                </>
-                            )}
-
-                            {/* Local */}
-                            {tripType === 'local' && (
-                                <>
-                                    <input
-                                        type="text"
-                                        placeholder="Enter City"
-                                        value={city}
-                                        onChange={(e) => setCity(e.target.value)}
-                                        className="input"
-                                    />
-
-                                    <input
-                                        type="text"
-                                        placeholder="Pickup Location"
-                                        value={pickupLocation}
-                                        onChange={(e) => setPickupLocation(e.target.value)}
-                                        className="input"
-                                    />
-                                </>
-                            )}
-
-                            {/* Date */}
-                            <input
-                                type="date"
-                                value={date}
-                                min={new Date().toISOString().split('T')[0]}
-                                onChange={(e) => setDate(e.target.value)}
-                                className="input"
-                            />
-
-                            {/* Return Date (only round) */}
-                            {tripType === 'round' && (
-                                <input
-                                    type="date"
-                                    value={returnDate}
-                                    onChange={(e) => setReturnDate(e.target.value)}
-                                    className="input"
-                                />
-                            )}
-
-                            {/* Time Dropdown */}
-                            <select
-                                value={time}
-                                onChange={(e) => setTime(e.target.value)}
-                                className="input"
-                            >
-                                {timeSlots.map((t, i) => (
-                                    <option key={i} value={t}>
-                                        {t}
-                                    </option>
-                                ))}
-                            </select>
-
-                            {/* Passengers */}
-                            <select
-                                value={passengers}
-                                onChange={(e) => setPassengers(e.target.value)}
-                                className="input"
-                            >
-                                <option value="1">1 Passenger</option>
-                                <option value="2">2 Passengers</option>
-                                <option value="3">3 Passengers</option>
-                                <option value="4">4 Passengers</option>
-                                <option value="5">5+ Passengers</option>
-                            </select>
-                        </div>
-
-                        {/* RIGHT SIDE (UNCHANGED) */}
-                        <div className="space-y-6">
-                            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 space-y-6">
-                                <h3 className="text-2xl font-bold">Booking Summary</h3>
-
-                                <p>Trip Type: {tripType}</p>
-                                <p>From: {pickupLocation}</p>
-                                <p>To: {dropoffLocation}</p>
-                                {tripType === 'local' && <p>City: {city}</p>}
-                                <p>Date: {date}</p>
-                                {tripType === 'round' && <p>Return: {returnDate}</p>}
-                                <p>Time: {time}</p>
-                                <p>Passengers: {passengers}</p>
-
-                                <button
-                                    onClick={handleBooking}
-                                    className="w-full py-4 bg-gradient-to-r from-black to-orange-300 text-white font-bold rounded-xl"
-                                >
-                                    Confirm & Book Now
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                <SelectWithIcon
+                  icon={<Car className="text-yellow-500" />}
+                  options={['', 'Sedan', 'SUV', 'Hatchback', 'Minivan', 'Luxury']}
+                  value={carType}
+                  onChange={setCarType}
+                />
+              </div>
             </div>
 
-            {/* Reusable Tailwind class */}
-            <style jsx>{`
+            {/* RIGHT SIDE - Summary */}
+            <div className="space-y-6">
+              <div className="bg-white/70 rounded-2xl p-8 space-y-6 shadow-lg">
+                <h3 className="text-2xl font-bold text-blue-600">Booking Summary</h3>
+                <p>Trip Type: <span className="font-semibold">{tripType}</span></p>
+                <p>From: <span className="font-semibold">{pickupLocation}</span></p>
+                <p>To: <span className="font-semibold">{dropoffLocation}</span></p>
+                {tripType === 'local' && <p>City: <span className="font-semibold">{city}</span></p>}
+                <p>Date: <span className="font-semibold">{date}</span></p>
+                {tripType === 'round' && <p>Return: <span className="font-semibold">{returnDate}</span></p>}
+                <p>Time: <span className="font-semibold">{time}</span></p>
+                <p>Car Type: <span className="font-semibold">{carType}</span></p>
+
+                <button
+                  onClick={handleBooking}
+                  className="w-full py-4 bg-black hover:bg-white border-1 hover:text-black hover:border-1 hover:border-black text-white font-bold rounded-2xl transition-all hover:opacity-90"
+                >
+                  Confirm & Book Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Reusable Tailwind classes */}
+      <style jsx>{`
         .input {
           width: 100%;
-          padding: 10px;
+          padding: 12px;
           border: 1px solid #ddd;
-          border-radius: 10px;
+          border-radius: 12px;
           outline: none;
-          background-color: #E5F0FF;
+          background-color: #f5f8ff;
+          transition: all 0.3s;
+        }
+        .input:focus {
+          border-color: #facc15;
+          box-shadow: 0 0 5px rgba(250, 204, 21, 0.5);
         }
       `}</style>
-        </div>
-    );
+    </div>
+  );
+}
+
+// Reusable Input with Icon
+function InputWithIcon({ icon, placeholder, value, onChange, type = 'text' }) {
+  return (
+    <div className="relative">
+      <div className="absolute left-3 top-1/2 -translate-y-1/2">{icon}</div>
+      <input
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 bg-white/80 focus:ring-2 focus:ring-yellow-500 focus:outline-none shadow-sm placeholder-gray-500 transition"
+      />
+    </div>
+  );
+}
+
+// Reusable Select with Icon
+function SelectWithIcon({ icon, options, value, onChange }) {
+  return (
+    <div className="relative">
+      {icon && <div className="absolute left-3 top-1/2 -translate-y-1/2">{icon}</div>}
+      <select
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 bg-white/80 focus:ring-2 focus:ring-yellow-500 focus:outline-none shadow-sm transition"
+      >
+        {options.map((opt, i) => (
+          <option key={i} value={opt}>
+            {opt || 'Select Car Type'}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 }

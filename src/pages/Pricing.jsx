@@ -47,7 +47,7 @@ export default function Pricing() {
       period: 'No commitment',
       description: 'Pay as you go',
       features: ['Standard pricing', 'Basic support', 'Booking history', 'Payment options'],
-      color: 'from-blue-400 to-blue-500',
+      color: 'from-blue-400 to-blue-600',
     },
     {
       name: 'Regular',

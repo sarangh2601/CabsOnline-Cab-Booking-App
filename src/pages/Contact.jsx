@@ -46,7 +46,7 @@ export default function Contact() {
       title: 'Live Chat',
       description: 'Chat with our team instantly',
       details: 'Available on our app',
-      color: 'from-blue-500 to-cyan-500',
+      color: 'from-blue-600 to-cyan-500',
     },
     {
       icon: Clock,
@@ -63,39 +63,28 @@ export default function Contact() {
       address: '123 Main Street, New York, NY 10001',
       phone: '+1 (234) 567-890',
       email: 'ny@onlinecab.com',
-    },
-    {
-      city: 'Los Angeles',
-      address: '456 Sunset Boulevard, Los Angeles, CA 90001',
-      phone: '+1 (234) 567-891',
-      email: 'la@onlinecab.com',
-    },
-    {
-      city: 'Chicago',
-      address: '789 Michigan Avenue, Chicago, IL 60601',
-      phone: '+1 (234) 567-892',
-      email: 'chicago@onlinecab.com',
-    },
+    }
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen text-foreground">
       {/* Hero Section */}
-      <div className="pt-32 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-orange-50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-primary">Get in Touch</h1>
-          <p className="text-gray-600 text-lg">We're here to help. Reach out to us anytime, anywhere.</p>
+      <div className="relative pt-32 pb-12 px-4 sm:px-6 lg:px-8 bg-[url('FAQ.jpg')] bg-cover">
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <h1 className="relative text-4xl sm:text-5xl font-bold mb-4 ">Get in Touch</h1>
+          <p className="relative text-gray-300 text-lg">We're here to help. Reach out to us anytime, anywhere.</p>
         </div>
       </div>
 
       {/* Contact Methods */}
-      <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      <div className="py-20 px-4 sm:px-6 lg:px-8 bg-[url('map-bg.jpg')] bg-cover bg-fixed bg-no-repeat">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
             {contactMethods.map((method, idx) => {
               const Icon = method.icon;
               return (
-                <div key={idx} className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all p-6 border border-gray-100">
+                <div key={idx} className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all p-6 border border-gray-100 ">
                   <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${method.color} flex items-center justify-center mb-4`}>
                     <Icon size={24} className="text-white" />
                   </div>
@@ -110,186 +99,225 @@ export default function Contact() {
       </div>
 
       {/* Contact Form Section */}
-      <div className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
+      <div className="relative py-12 px-4 sm:px-6 lg:px-8 bg-[url('/contact-bg.jpg')] bg-cover bg-center">
+
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-xs"></div>
+
+        <div className="relative max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12">
+
             {/* Form */}
-            <div>
-              <h2 className="text-3xl font-bold text-primary mb-8">Send us a Message</h2>
+            <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 sm:p-8 shadow-xl">
+              <h2 className="text-3xl font-bold text-white mb-8">Send us a Message</h2>
 
               {submitted && (
-                <div className="mb-6 p-4 bg-green-100 border border-green-400 rounded-lg">
-                  <p className="text-green-800 text-sm font-semibold">✓ Message sent successfully! We'll get back to you soon.</p>
+                <div className="mb-6 p-4 bg-green-100/20 border border-green-400 rounded-lg">
+                  <p className="text-green-200 text-sm font-semibold">
+                    ✓ Message sent successfully! We'll get back to you soon.
+                  </p>
                 </div>
               )}
 
               <form onSubmit={handleSubmit} className="space-y-5">
+
                 {/* Name */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Your name"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                    className="w-full px-4 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                   />
                 </div>
 
                 {/* Email */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="your@email.com"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                    className="w-full px-4 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                   />
                 </div>
 
                 {/* Phone */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number (Optional)</label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    placeholder="+1 (234) 567-890"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                    placeholder="+91 98765 43210"
+                    className="w-full px-4 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
                 {/* Subject */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
                   <select
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                    className="w-full px-4 py-2 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                   >
-                    <option value="">Select a subject</option>
-                    <option value="booking">Booking Issue</option>
-                    <option value="payment">Payment Issue</option>
-                    <option value="driver">Driver Complaint</option>
-                    <option value="feedback">Feedback</option>
-                    <option value="partnership">Partnership</option>
-                    <option value="other">Other</option>
+                    <option value="" className="text-black">Select a subject</option>
+                    <option value="booking" className="text-black">Booking Issue</option>
+                    <option value="payment" className="text-black">Payment Issue</option>
+                    <option value="driver" className="text-black">Driver Complaint</option>
+                    <option value="feedback" className="text-black">Feedback</option>
+                    <option value="other" className="text-black">Other</option>
                   </select>
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Message</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
-                    placeholder="Tell us how we can help..."
                     rows={5}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm resize-none"
+                    placeholder="Tell us how we can help..."
+                    className="w-full px-4 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
                     required
                   />
                 </div>
 
-                {/* Submit Button */}
+                {/* Button */}
                 <button
                   type="submit"
-                  className="w-full py-3 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2 text-sm"
+                  className="w-full py-3 bg-gradient-to-r from-blue-600 to-orange-500 text-white font-semibold rounded-lg hover:scale-105 hover:shadow-lg transition-all"
                 >
-                  <Send size={18} />
                   Send Message
                 </button>
+
               </form>
             </div>
 
-            {/* Office Locations */}
-            <div>
-              <h2 className="text-3xl font-bold text-primary mb-8">Our Offices</h2>
+            {/* Offices */}
+            <div className="space-y-6">
 
-              <div className="space-y-6">
-                {offices.map((office, idx) => (
-                  <div key={idx} className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-200">
-                    <h3 className="text-lg font-bold text-primary mb-4">{office.city}</h3>
-
-                    <div className="space-y-3">
-                      <div className="flex items-start gap-3">
-                        <MapPin size={18} className="text-secondary flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="text-xs text-gray-500">Address</p>
-                          <p className="font-semibold text-gray-800 text-sm">{office.address}</p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-3">
-                        <Phone size={18} className="text-primary flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="text-xs text-gray-500">Phone</p>
-                          <p className="font-semibold text-gray-800 text-sm">{office.phone}</p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-3">
-                        <Mail size={18} className="text-primary flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="text-xs text-gray-500">Email</p>
-                          <p className="font-semibold text-gray-800 text-sm">{office.email}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              {/* Section Heading */}
+              <div className="mb-8 space-y-4 flex flex-col justify-center">
+                <p className="text-gray-300 text-sm sm:text-base mt-2 max-w-md border-b border-white w-[30%] pb-2">
+                  Contact Us
+                </p>
+                <h2 className="text-4xl sm:text-4xl font-bold text-white">
+                  We’re Here to Help
+                </h2>
+                <p className="text-gray-300 text-sm sm:text-base mt-2 max-w-md">
+                  Have questions or need assistance? Our team is here to help you with bookings, support, and any inquiries you may have.
+                </p>
               </div>
 
-              {/* Support Hours */}
-              <div className="mt-8 p-6 bg-gradient-to-br from-blue-50 to-orange-50 rounded-xl border border-blue-200">
-                <h3 className="font-bold text-primary mb-4 text-base">Support Hours</h3>
-                <div className="space-y-2 text-sm">
-                  <p className="text-gray-700"><span className="font-semibold">Monday - Friday:</span> 9:00 AM - 6:00 PM</p>
-                  <p className="text-gray-700"><span className="font-semibold">Saturday:</span> 10:00 AM - 4:00 PM</p>
-                  <p className="text-gray-700"><span className="font-semibold">Sunday:</span> Emergency Support Only</p>
-                  <p className="text-gray-700 mt-4"><span className="font-semibold">Timezone:</span> EST (Eastern Standard Time)</p>
+              {/* Office Cards */}
+              {offices.map((office, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all"
+                >
+                  <h3 className="text-lg font-bold text-white mb-4">
+                    {office.city}
+                  </h3>
+
+                  <p className="text-gray-300 text-sm">{office.address}</p>
+                  <p className="text-gray-300 text-sm">{office.phone}</p>
+                  <p className="text-gray-300 text-sm">{office.email}</p>
                 </div>
+              ))}
+
+              {/* Support */}
+              <div className="mt-8 p-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl">
+                <h3 className="font-bold text-white mb-4 text-lg">
+                  Support Hours
+                </h3>
+                <p className="text-gray-300 text-sm">Mon - Fri: 9AM - 6PM</p>
+                <p className="text-gray-300 text-sm">Sat: 10AM - 4PM</p>
+                <p className="text-gray-300 text-sm">Sun: Emergency Only</p>
               </div>
+
             </div>
+
           </div>
         </div>
       </div>
 
       {/* FAQ Section */}
-      <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 text-primary">Quick Answers</h2>
+      <div className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-yellow-50 via-white to-yellow-100">
+        <div className='w-full flex flex-col items-center justify-center mb-8'>
 
-          <div className="space-y-3">
-            {[
-              { q: 'How do I reset my password?', a: 'You can reset your password through the login page by clicking "Forgot Password".' },
-              { q: 'How long do refunds take?', a: 'Refunds typically process within 3-5 business days to your original payment method.' },
-              { q: 'Can I change my booking?', a: 'Yes, you can modify your booking up to 10 minutes before the scheduled pickup time.' },
-              { q: 'Is my payment information secure?', a: 'Yes, we use industry-standard encryption to protect all payment information.' },
-            ].map((item, idx) => (
-              <details key={idx} className="group bg-white rounded-lg border border-gray-200 shadow-sm">
-                <summary className="flex cursor-pointer items-center justify-between p-5 font-semibold text-gray-800 text-sm">
-                  <span>{item.q}</span>
-                  <span className="transition group-open:rotate-180">
-                    <svg className="h-5 w-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                    </svg>
-                  </span>
-                </summary>
-                <p className="px-5 pb-5 pt-0 text-gray-600 text-sm">{item.a}</p>
-              </details>
-            ))}
+          <h2 className="text-3xl font-bold mb-3 text-gray-800 text-center border-b pb-2 ">
+            Got questions? We've got answers!
+          </h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam recusandae maiores accusamus modi iste ea placeat, cupiditate esse cumque quibusdam.</p>
+
+        </div>
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10">
+          {/* RIGHT SIDE (IMAGE) */}
+          <div className="w-full lg:w-1/2 flex justify-center">
+
+            <img
+              src="/faq-1.png"  // change image if needed
+              alt="FAQ Taxi"
+              className="w-[500px] sm:w-[320px] md:w-[500px] object-contain drop-shadow-xl rounded-xl shadow-lg"
+            />
+
           </div>
+
+          {/* LEFT SIDE (FAQ) */}
+          <div className="w-full lg:w-1/2">
+
+
+            <div className="space-y-3">
+              {[
+                { q: 'How do I reset my password?', a: 'You can reset your password through the login page by clicking "Forgot Password".' },
+                { q: 'How long do refunds take?', a: 'Refunds typically process within 3-5 business days to your original payment method.' },
+                { q: 'Can I change my booking?', a: 'Yes, you can modify your booking up to 10 minutes before the scheduled pickup time.' },
+                { q: 'Is my payment information secure?', a: 'Yes, we use industry-standard encryption to protect all payment information.' },
+              ].map((item, idx) => (
+                <details key={idx} className="group bg-white rounded-lg border border-gray-200 shadow-sm">
+
+                  <summary className="flex cursor-pointer items-center justify-between p-4 font-semibold text-gray-800 text-sm">
+                    <span>{item.q}</span>
+
+                    <span className="transition group-open:rotate-180">
+                      <svg className="h-5 w-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                      </svg>
+                    </span>
+                  </summary>
+
+                  <p className="px-4 pb-4 text-gray-600 text-sm">
+                    {item.a}
+                  </p>
+
+                </details>
+              ))}
+            </div>
+
+          </div>
+
+
+
         </div>
       </div>
+
+      <section className="w-full">
+
+        <iframe
+          src="https://www.google.com/maps?q=Nagpur&output=embed"
+          className="w-full h-[350px] sm:h-[300px] lg:h-[350px] border-0"
+          loading="lazy"
+        ></iframe>
+
+      </section>
     </div>
   );
 }
