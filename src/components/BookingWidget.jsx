@@ -44,6 +44,16 @@ export default function BookingWidget() {
 
   return (
     <div className="mt-10 mb-10 px-4 sm:px-6 lg:px-8 relative z-20">
+
+       {/* HEADER */}
+      <div className="text-center pt-28 pb-12">
+        <h1 className="text-5xl font-bold">
+          Book Your <span className="text-blue-600">Ride</span>
+        </h1>
+        <p className="text-gray-500 mt-2">Fast, reliable & premium cab service</p>
+      </div> 
+
+      
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-t-4 border-blue-400 bg-gradient-to-br from-yellow-50 via-white to-yellow-100">
           

@@ -38,7 +38,7 @@ export default function Contact() {
       icon: Mail,
       title: 'Email Us',
       description: 'We reply within 2 hours',
-      details: 'support@onlinecab.com',
+      details: 'support@CabsOnline.com',
       color: 'from-secondary to-orange-600',
     },
     {
@@ -62,7 +62,7 @@ export default function Contact() {
       city: 'New York',
       address: '123 Main Street, New York, NY 10001',
       phone: '+1 (234) 567-890',
-      email: 'ny@onlinecab.com',
+      email: 'ny@CabsOnline.com',
     }
   ];
 

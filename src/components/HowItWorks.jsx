@@ -1,84 +1,144 @@
+import {
+  MapPin,
+  Smartphone,
+  Car,
+  CheckCircle,
+  Smile,
+  Star,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+
 export default function HowItWorks() {
   const steps = [
     {
-      number: '01',
-      title: 'Open the App',
-      description: 'Download OnlineCab app or visit our website to get started.',
-      icon: '📱',
+      title: "Open the App",
+      desc: "Download the app or visit our website to begin.",
+      icon: <Smartphone size={22} />,
     },
     {
-      number: '02',
-      title: 'Enter Your Location',
-      description: 'Set your pickup and destination addresses with just a few taps.',
-      icon: '📍',
+      title: "Enter Location",
+      desc: "Set pickup and destination easily.",
+      icon: <MapPin size={22} />,
     },
     {
-      number: '03',
-      title: 'Choose Your Ride',
-      description: 'Select from economy, comfort, or premium ride options.',
-      icon: '🚖',
+      title: "Choose Ride",
+      desc: "Pick a ride that suits your comfort.",
+      icon: <Car size={22} />,
     },
     {
-      number: '04',
-      title: 'Meet Your Driver',
-      description: 'Get matched with a verified driver and track them in real-time.',
-      icon: '✅',
+      title: "Meet Driver",
+      desc: "Get connected with a verified driver.",
+      icon: <CheckCircle size={22} />,
     },
     {
-      number: '05',
-      title: 'Enjoy Your Ride',
-      description: 'Sit back and relax while our professional driver takes you safely.',
-      icon: '😊',
+      title: "Enjoy Ride",
+      desc: "Relax and travel safely.",
+      icon: <Smile size={22} />,
     },
     {
-      number: '06',
-      title: 'Rate & Pay',
-      description: 'Complete payment and rate your driver to help us improve.',
-      icon: '⭐',
+      title: "Rate & Pay",
+      desc: "Complete payment and share feedback.",
+      icon: <Star size={22} />,
     },
   ];
 
+  const extended = [...steps, ...steps];
+
+  const [index, setIndex] = useState(0);
+  const [pause, setPause] = useState(false);
+
+  useEffect(() => {
+    if (pause) return;
+
+    const interval = setInterval(() => {
+      setIndex((prev) => prev + 1);
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, [pause]);
+
+  useEffect(() => {
+    if (index >= steps.length) {
+      setTimeout(() => {
+        setIndex(0);
+      }, 2000);
+    }
+  }, [index]);
+
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-50 to-white relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-96 h-96 bg-blue-200 rounded-full opacity-20 blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-orange-200 rounded-full opacity-20 blur-3xl translate-x-1/2 translate-y-1/2"></div>
+    <section className="py-24 bg-gradient-to-br from-yellow-50 via-white to-yellow-100 text-gray-900 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Heading */}
+        <div className="mb-16 text-center">
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+          {/* Badge */}
+          <div className="inline-block px-4 py-1.5 rounded-full bg-blue-100 text-blue-600 text-xs font-semibold mb-4 tracking-wide">
             How It Works
+          </div>
+
+          {/* Title */}
+          <h2 className="text-4xl md:text-5xl font-bold leading-tight">
+            Simple Steps to{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+              Book Your Ride
+            </span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Simple, fast, and secure. Book your ride in 6 easy steps.
+
+          {/* Description */}
+          <p className="text-gray-500 mt-4 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+            Experience smooth, effortless booking with our smart and reliable cab service.
           </p>
+
+          {/* Accent Line */}
+          <div className="mt-6 flex justify-center">
+            <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-yellow-400 rounded-full"></div>
+          </div>
+
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {steps.map((step, index) => (
-            <div
-              key={index}
-              className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-border hover:border-primary"
-            >
-              <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
-                <span className="text-white font-bold text-lg">{step.number}</span>
+        {/* Carousel */}
+        <div
+          className="overflow-hidden"
+          onMouseEnter={() => setPause(true)}
+          onMouseLeave={() => setPause(false)}
+        >
+          <div
+            className="flex gap-6 transition-transform duration-[2500ms] ease-in-out"
+            style={{
+              transform: `translateX(-${index * 50}%)`,
+            }}
+          >
+            {extended.map((step, i) => (
+              <div
+                key={i}
+                className="min-w-[50%] flex-shrink-0 bg-white border border-yellow-200 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 relative"
+              >
+                {/* Icon */}
+                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-yellow-100 text-yellow-600 mb-6">
+                  {step.icon}
+                </div>
+
+                {/* Title */}
+                <h3 className="text-xl font-semibold mb-2">
+                  {step.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-gray-500 text-sm">
+                  {step.desc}
+                </p>
+
+                {/* Arrow (flow indicator) */}
+                {i < extended.length - 1 && (
+                  <div className="absolute right-[-18px] top-1/2 transform -translate-y-1/2 text-yellow-400 text-2xl">
+                    →
+                  </div>
+                )}
               </div>
-
-              <div className="text-5xl mb-4">{step.icon}</div>
-              <h3 className="text-xl font-bold text-foreground mb-3">{step.title}</h3>
-              <p className="text-gray-600 leading-relaxed text-sm">{step.description}</p>
-
-              {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute -right-4 top-1/2 w-8 h-1 bg-gradient-to-r from-primary to-secondary -translate-y-1/2"></div>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        <div className="mt-16 text-center">
-          <button className="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-sm">
-            Get Started Today
-          </button>
-        </div>
       </div>
     </section>
   );

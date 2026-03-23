@@ -51,12 +51,29 @@ export default function Booking() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Hero Section */}
-      <div className="pt-32 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-orange-50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-primary">Book Your Ride</h1>
-          <p className="text-gray-600 text-lg">Safe, reliable, and affordable transportation in just a few taps</p>
+      {/* FULL WIDTH HEADER */}
+      <div className="relative w-screen h-[30vh] min-h-[300px] overflow-hidden">
+
+        {/* BACKGROUND IMAGE */}
+        <img
+          src="FAQ.jpg" // replace with your image
+          alt="Cab Background"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
+        {/* OVERLAY */}
+        <div className="absolute inset-0 bg-black/50"></div>
+
+        {/* CONTENT */}
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-bold text-white">
+            Book Your <span className="text-yellow-400">Ride</span>
+          </h1>
+          <p className="text-gray-200 mt-4 text-lg md:text-xl">
+            Fast, reliable & premium cab service
+          </p>
         </div>
+
       </div>
 
       {/* Booking Section */}
@@ -168,11 +185,10 @@ export default function Booking() {
                       <div
                         key={ride.id}
                         onClick={() => setBookingData(prev => ({ ...prev, rideType: ride.id }))}
-                        className={`p-5 rounded-xl border-2 cursor-pointer transition-all ${
-                          bookingData.rideType === ride.id
+                        className={`p-5 rounded-xl border-2 cursor-pointer transition-all ${bookingData.rideType === ride.id
                             ? 'border-primary bg-blue-50'
                             : 'border-gray-200 hover:border-primary hover:bg-gray-50'
-                        }`}
+                          }`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-4">
@@ -277,11 +293,11 @@ export default function Booking() {
                       <p className="font-semibold text-sm text-gray-800">+1 (234) 567-890</p>
                     </div>
                   </a>
-                  <a href="mailto:support@onlinecab.com" className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                  <a href="mailto:support@CabsOnline.com" className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors">
                     <Mail size={18} className="text-primary flex-shrink-0" />
                     <div>
                       <p className="text-xs text-gray-500">Email</p>
-                      <p className="font-semibold text-sm text-gray-800">support@onlinecab.com</p>
+                      <p className="font-semibold text-sm text-gray-800">support@CabsOnline.com</p>
                     </div>
                   </a>
                 </div>

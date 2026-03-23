@@ -1,110 +1,180 @@
-import { Star } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 export default function Testimonials() {
-  const testimonials = [
+  const reviews = [
     {
-      name: 'Sarah Johnson',
-      role: 'Business Executive',
-      image: '👩‍💼',
+      name: "Rahul Sharma",
+      role: "Business Traveler",
       rating: 5,
-      text: 'OnlineCab has completely changed how I commute. The drivers are professional and the cars are always clean. Highly recommended!',
+      image: "https://randomuser.me/api/portraits/men/32.jpg",
+      text: "Amazing service and very smooth booking experience. Driver arrived on time and the entire journey was extremely comfortable.",
     },
     {
-      name: 'Michael Chen',
-      role: 'Student',
-      image: '👨‍🎓',
-      rating: 5,
-      text: 'Great service! The app is super easy to use and the prices are reasonable. Much better than waiting for taxis.',
+      name: "Priya Verma",
+      role: "Working Professional",
+      rating: 4,
+      image: "https://randomuser.me/api/portraits/women/44.jpg",
+      text: "Very reliable cab service with clean vehicles and polite drivers. Pickup was on time and the ride felt safe and comfortable.",
     },
     {
-      name: 'Emily Rodriguez',
-      role: 'Frequent Traveler',
-      image: '👩‍🔬',
+      name: "Amit Patel",
+      role: "Frequent Traveler",
       rating: 5,
-      text: 'I use OnlineCab almost daily for airport trips. The reliability and safety measures give me peace of mind.',
+      image: "https://randomuser.me/api/portraits/men/65.jpg",
+      text: "This is the best cab service I have used so far. Booking is easy, drivers are professional, and rides are always smooth.",
     },
     {
-      name: 'James Wilson',
-      role: 'Tech Entrepreneur',
-      image: '👨‍💻',
-      rating: 5,
-      text: 'Love the transparency in pricing and real-time tracking. The customer support is also responsive and helpful.',
+      name: "Sneha Kulkarni",
+      role: "Student",
+      rating: 4,
+      image: "https://randomuser.me/api/portraits/women/68.jpg",
+      text: "Affordable pricing and a great overall experience. The app is easy to use and drivers are friendly and well behaved.",
     },
     {
-      name: 'Priya Patel',
-      role: 'Healthcare Professional',
-      image: '👩‍⚕️',
+      name: "Vikram Singh",
+      role: "Entrepreneur",
       rating: 5,
-      text: 'Working late shifts means I need reliable transport. OnlineCab has never let me down. 5 stars all the way!',
+      image: "https://randomuser.me/api/portraits/men/75.jpg",
+      text: "Professional drivers and seamless booking process. I always prefer this service for business travel because it is reliable and efficient.",
     },
     {
-      name: 'David Thompson',
-      role: 'Marketing Manager',
-      image: '👨‍💼',
+      name: "Neha Joshi",
+      role: "Tourist",
       rating: 5,
-      text: 'Excellent service, professional drivers, and great value for money. I recommend it to all my colleagues.',
+      image: "https://randomuser.me/api/portraits/women/90.jpg",
+      text: "Loved the journey experience. The cab was clean, driver was polite, and the ride was safe, smooth, and very enjoyable.",
     },
   ];
 
-  return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-blue-50 to-white relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-96 h-96 bg-blue-100 rounded-full opacity-20 blur-3xl -translate-x-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-orange-100 rounded-full opacity-20 blur-3xl translate-x-1/2"></div>
+  const [index, setIndex] = useState(0);
 
-      <div className="max-w-7xl mx-auto relative z-10">
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [index]);
+
+  const nextSlide = () => {
+    setIndex((prev) => (prev + 1) % reviews.length);
+  };
+
+  const prevSlide = () => {
+    setIndex((prev) =>
+      prev === 0 ? reviews.length - 1 : prev - 1
+    );
+  };
+
+  return (
+    <section className="py-24 bg-gradient-to-br from-yellow-50 via-white to-yellow-100">
+      <div className="max-w-6xl mx-auto px-4">
+
+        {/* Heading */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Loved by <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Thousands</span>
+
+          {/* Small Badge */}
+          <div className="inline-block px-4 py-1.5 rounded-full bg-blue-100 text-blue-600 text-xs font-semibold mb-4">
+            Testimonials
+          </div>
+
+          {/* Main Heading */}
+          <h2 className="text-4xl md:text-5xl font-bold leading-tight">
+            What Our{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+              Customers Say
+            </span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Real reviews from real customers who trust OnlineCab for their daily commute.
+
+          {/* Subtext */}
+          <p className="text-gray-500 mt-4 max-w-xl mx-auto">
+            Real experiences from our happy customers who trust our service every day.
           </p>
+
+          {/* Accent Line */}
+          <div className="mt-5 h-1 w-20 mx-auto bg-gradient-to-r from-blue-500 to-yellow-400 rounded-full"></div>
+
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-border hover:border-primary relative"
-            >
-              <div className="absolute top-4 right-4 text-4xl opacity-20">"</div>
+        {/* Slider */}
+        <div className="relative flex items-center justify-center">
 
-              <div className="flex gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="text-yellow-400 fill-yellow-400" size={20} />
+          {/* Left Arrow */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-[-40px] z-10 bg-white shadow-md p-2 rounded-full hover:bg-yellow-100"
+          >
+            <ChevronLeft />
+          </button>
+
+          {/* Cards Wrapper */}
+          <div className="relative w-full flex justify-center">
+
+            {/* Fade Edges */}
+            <div className="pointer-events-none absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-white to-transparent z-10" />
+            <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-white to-transparent z-10" />
+
+            <div className="overflow-hidden w-full max-w-[860px]">
+              <div
+                className="flex gap-6 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                style={{
+                  transform: `translateX(-${index * 276}px)`,
+                }}
+              >
+                {reviews.concat(reviews).map((review, i) => (
+                  <div
+                    key={i}
+                    className="w-[260px] min-h-[320px] flex-shrink-0 rounded-2xl bg-white/80 backdrop-blur-lg border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-500 p-6 flex flex-col items-center text-center group"
+                  >
+
+                    {/* Profile Image */}
+                    <img
+                      src={review.image}
+                      alt={review.name}
+                      className="w-16 h-16 rounded-full object-cover border-2 border-yellow-400 mb-3"
+                    />
+
+                    {/* Name */}
+                    <h4 className="text-sm font-semibold text-gray-900">
+                      {review.name}
+                    </h4>
+
+                    {/* Role */}
+                    <p className="text-xs text-gray-400 mb-3">
+                      {review.role}
+                    </p>
+
+                    {/* Rating */}
+                    <div className="flex mb-3">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="w-4 h-4 text-yellow-500 fill-yellow-500"
+                        />
+                      ))}
+                    </div>
+
+                    {/* Text */}
+                    <p className="text-sm text-gray-600 leading-relaxed flex-grow">
+                      “{review.text}”
+                    </p>
+
+                    {/* Bottom Accent */}
+                    <div className="mt-5 h-1 w-10 bg-gradient-to-r from-blue-500 to-yellow-400 rounded-full group-hover:w-16 transition-all duration-300"></div>
+
+                  </div>
                 ))}
               </div>
-
-              <p className="text-gray-600 mb-6 leading-relaxed italic text-sm">{testimonial.text}</p>
-
-              <div className="flex items-center gap-4 pt-6 border-t border-border">
-                <div className="text-4xl">{testimonial.image}</div>
-                <div>
-                  <h4 className="font-bold text-foreground">{testimonial.name}</h4>
-                  <p className="text-gray-500 text-sm">{testimonial.role}</p>
-                </div>
-              </div>
             </div>
-          ))}
-        </div>
+          </div>
+          {/* Right Arrow */}
+          <button
+            onClick={nextSlide}
+            className="absolute right-[-40px] z-10 bg-white shadow-md p-2 rounded-full hover:bg-yellow-100"
+          >
+            <ChevronRight />
+          </button>
 
-        <div className="mt-16 grid md:grid-cols-4 gap-8">
-          <div className="text-center">
-            <div className="text-4xl font-bold text-primary mb-2">50K+</div>
-            <p className="text-gray-600 text-sm">Happy Customers</p>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-primary mb-2">10K+</div>
-            <p className="text-gray-600 text-sm">Active Drivers</p>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-primary mb-2">98%</div>
-            <p className="text-gray-600 text-sm">Satisfaction Rate</p>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-primary mb-2">2M+</div>
-            <p className="text-gray-600 text-sm">Rides Completed</p>
-          </div>
         </div>
       </div>
     </section>

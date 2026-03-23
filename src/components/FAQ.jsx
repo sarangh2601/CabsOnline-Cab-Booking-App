@@ -1,41 +1,34 @@
-import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 export default function FAQ() {
   const [expanded, setExpanded] = useState(0);
 
   const faqs = [
     {
-      question: 'How do I book a ride with OnlineCab?',
-      answer: 'Open the OnlineCab app or website, enter your pickup and destination locations, select your preferred ride type, and confirm the booking. A driver will be matched to you within seconds.',
+      question: "How do I book a ride with CabsOnline?",
+      answer:
+        "Open the app or website, enter pickup & drop, choose ride, and confirm booking instantly.",
     },
     {
-      question: 'What payment methods do you accept?',
-      answer: 'We accept credit/debit cards, digital wallets (Apple Pay, Google Pay), bank transfers, and cash. You can save your payment preferences for faster bookings.',
+      question: "What payment methods do you accept?",
+      answer:
+        "We accept UPI, cards, wallets, and cash for your convenience.",
     },
     {
-      question: 'How much does a ride cost?',
-      answer: 'Fares are calculated based on distance, time, and current demand. You can see the estimated fare before confirming your booking. There are no hidden charges.',
+      question: "How much does a ride cost?",
+      answer:
+        "Fare depends on distance, time, and demand. You see price before booking.",
     },
     {
-      question: 'Are the drivers verified and safe?',
-      answer: 'Yes, all our drivers undergo thorough background checks, driving record verification, and vehicle inspections. We prioritize your safety with our strict vetting process.',
+      question: "Are drivers verified?",
+      answer:
+        "Yes, all drivers are background verified and trained for safety.",
     },
     {
-      question: 'Can I schedule a ride in advance?',
-      answer: 'Yes, you can schedule rides up to 7 days in advance. Simply select the scheduled option during booking and choose your preferred date and time.',
-    },
-    {
-      question: 'What if I have a problem with my ride?',
-      answer: 'Our customer support team is available 24/7 to help. You can contact us through the app, email, or phone. We investigate all issues and work toward a quick resolution.',
-    },
-    {
-      question: 'Do you offer corporate accounts?',
-      answer: 'Yes, we offer special corporate packages with discounted rates, billing management, and dedicated support. Contact our business team for more information.',
-    },
-    {
-      question: 'How do I become a driver with OnlineCab?',
-      answer: 'Visit our driver sign-up page and complete the application. You will need a valid license, vehicle registration, and insurance. After verification, you can start earning immediately.',
+      question: "Can I schedule a ride?",
+      answer:
+        "Yes, you can pre-book rides anytime as per your schedule.",
     },
   ];
 
@@ -44,55 +37,80 @@ export default function FAQ() {
   };
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-orange-100 rounded-full opacity-20 blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-100 rounded-full opacity-20 blur-3xl"></div>
+    <section className="py-24 px-4 bg-gradient-to-br from-blue-50 via-white to-yellow-50">
 
-      <div className="max-w-3xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Frequently Asked <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Questions</span>
+      <div className="max-w-7xl mx-auto">
+
+        {/* TOP HEADING */}
+        <div className="mb-16 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold">
+            Frequently Asked{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+              Questions
+            </span>
           </h2>
-          <p className="text-lg text-gray-600">
-            Find answers to common questions about our service.
+          <p className="text-gray-500 mt-4">
+            Everything you need to know about our service.
           </p>
+          <div className="mt-4 h-1 w-20 mx-auto bg-gradient-to-r from-blue-500 to-yellow-400 rounded-full"></div>
         </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="bg-white border border-border rounded-xl overflow-hidden hover:border-primary transition-all duration-300"
-            >
-              <button
-                onClick={() => toggleExpanded(index)}
-                className="w-full px-6 py-4 flex items-center justify-between hover:bg-blue-50 transition-colors duration-200"
-              >
-                <h3 className="text-base font-bold text-foreground text-left">{faq.question}</h3>
-                <ChevronDown
-                  className={`text-primary flex-shrink-0 transition-transform duration-300 ${
-                    expanded === index ? 'rotate-180' : ''
-                  }`}
-                  size={24}
-                />
-              </button>
+        {/* ROW SECTION */}
+        <div className="grid md:grid-cols-2 gap-14 items-center">
 
-              {expanded === index && (
-                <div className="px-6 py-4 bg-gradient-to-r from-blue-50 to-orange-50 border-t border-border">
-                  <p className="text-gray-600 leading-relaxed text-sm">{faq.answer}</p>
-                </div>
-              )}
+          {/* LEFT → IMAGE */}
+          <div className="hidden md:block">
+            <div className="relative overflow-hidden rounded-3xl shadow-xl">
+              <img
+                src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=1400&auto=format&fit=crop"
+                alt="FAQ"
+                className="w-full h-[420px] object-cover hover:scale-105 transition duration-500"
+              />
             </div>
-          ))}
-        </div>
+          </div>
 
-        <div className="mt-16 text-center">
-          <p className="text-gray-600 mb-6 text-sm">
-            Didn't find your answer? Contact our support team.
-          </p>
-          <button className="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-sm">
-            Get Support
-          </button>
+          {/* RIGHT → FAQ */}
+          <div className="space-y-4">
+
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden"
+              >
+
+                {/* Question */}
+                <button
+                  onClick={() => toggleExpanded(index)}
+                  className="w-full px-6 py-4 flex justify-between items-center text-left"
+                >
+                  <h3 className="text-sm md:text-base font-semibold text-gray-900">
+                    {faq.question}
+                  </h3>
+
+                  <ChevronDown
+                    className={`text-blue-600 transition-transform duration-300 ${
+                      expanded === index ? "rotate-180" : ""
+                    }`}
+                    size={20}
+                  />
+                </button>
+
+                {/* Answer */}
+                <div
+                  className={`px-6 transition-all duration-300 overflow-hidden ${
+                    expanded === index ? "max-h-40 pb-4" : "max-h-0"
+                  }`}
+                >
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </div>
+
+              </div>
+            ))}
+
+          </div>
+
         </div>
       </div>
     </section>
