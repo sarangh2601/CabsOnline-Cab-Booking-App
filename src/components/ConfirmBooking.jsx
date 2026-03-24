@@ -1,65 +1,122 @@
-import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function ConfirmBooking() {
-  const { state } = useLocation();
-  const [paymentMethod, setPaymentMethod] = useState('upi');
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  if (!state) return <div>No Booking Found</div>;
+  const { bookingData, selectedCar } = location.state || {};
+
+  const [paymentOption, setPaymentOption] = useState("part");
+  const [coupon, setCoupon] = useState("");
+
+  if (!bookingData || !selectedCar) {
+    return (
+      <div className="text-center mt-20">
+        <p>No booking details found.</p>
+        <button
+          onClick={() => navigate("/")}
+          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+        >
+          Go Back
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-      <div className="max-w-5xl w-full grid md:grid-cols-2 gap-8">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-yellow-50 p-6 mt-12 font-sans">
 
-        {/* LEFT → BOOKING SUMMARY */}
-        <div className="bg-white p-8 rounded-2xl shadow-lg">
-          <h2 className="text-2xl font-bold mb-6 text-blue-600">Booking Summary</h2>
+      {/* Header */}
+      <div className="bg-gradient-to-r from-blue-500 to-yellow-400 text-white px-6 py-4 rounded-xl mb-8 shadow-lg max-w-7xl mx-auto">
+        <h2 className="text-2xl font-bold">Review Your Booking</h2>
+      </div>
 
-          <p><b>Trip:</b> {state.tripType}</p>
-          <p><b>From:</b> {state.pickupLocation}</p>
-          <p><b>To:</b> {state.dropoffLocation}</p>
-          {state.city && <p><b>City:</b> {state.city}</p>}
-          <p><b>Date:</b> {state.date}</p>
-          {state.returnDate && <p><b>Return:</b> {state.returnDate}</p>}
-          <p><b>Time:</b> {state.time}</p>
-          <p><b>Car:</b> {state.carType}</p>
-        </div>
+      <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
 
-        {/* RIGHT → PAYMENT SECTION */}
-        <div className="bg-white p-8 rounded-2xl shadow-lg">
-          <h2 className="text-2xl font-bold mb-6 text-yellow-600">Payment</h2>
+        {/* LEFT */}
+        <div className="md:col-span-2 space-y-6">
 
-          <div className="space-y-4">
-            <label className="flex gap-3">
-              <input
-                type="radio"
-                checked={paymentMethod === 'upi'}
-                onChange={() => setPaymentMethod('upi')}
-              />
-              UPI
-            </label>
+          {/* Trip */}
+          <div className="bg-white p-6 rounded-3xl shadow-xl">
+            <h3 className="text-xl font-semibold">
+              {bookingData.pickupLocation} → {bookingData.dropoffLocation} ({bookingData.tripType})
+            </h3>
 
-            <label className="flex gap-3">
-              <input
-                type="radio"
-                checked={paymentMethod === 'card'}
-                onChange={() => setPaymentMethod('card')}
-              />
-              Credit / Debit Card
-            </label>
+            <p className="text-gray-600 mt-2">
+              Car: {selectedCar.name}
+            </p>
 
-            <label className="flex gap-3">
-              <input
-                type="radio"
-                checked={paymentMethod === 'cash'}
-                onChange={() => setPaymentMethod('cash')}
-              />
-              Cash
-            </label>
+            <p className="text-gray-600 mt-1">
+              Date: {bookingData.date} | Time: {bookingData.time}
+            </p>
           </div>
 
-          <button className="mt-8 w-full py-4 bg-gradient-to-r from-blue-600 to-yellow-600 text-white rounded-xl font-bold">
-            Pay & Confirm Booking
+          {/* Contact */}
+          <div className="bg-white p-6 rounded-3xl shadow-xl">
+            <h3 className="text-xl font-semibold mb-4">
+              Contact Details
+            </h3>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <input type="text" placeholder="Full Name" className="border p-3 rounded-xl" />
+              <input type="text" placeholder="Mobile" className="border p-3 rounded-xl" />
+              <input type="email" placeholder="Email" className="border p-3 rounded-xl" />
+              <input type="text" placeholder="Pickup Location" className="border p-3 rounded-xl" />
+              <input type="text" placeholder="Drop Location" className="border p-3 rounded-xl md:col-span-2" />
+            </div>
+          </div>
+
+        </div>
+
+        {/* RIGHT */}
+        <div className="bg-white p-6 rounded-3xl shadow-xl">
+
+          <h3 className="text-xl font-semibold mb-4">Payment</h3>
+
+          <div className="space-y-3">
+
+            <label className="flex justify-between border p-4 rounded-xl">
+              <div>
+                <input type="radio" checked={paymentOption === "zero"} onChange={() => setPaymentOption("zero")} />
+                Book at zero
+              </div>
+              ₹0
+            </label>
+
+            <label className="flex justify-between border p-4 rounded-xl">
+              <div>
+                <input type="radio" checked={paymentOption === "part"} onChange={() => setPaymentOption("part")} />
+                Part Pay
+              </div>
+              ₹{Math.round(selectedCar.price * 0.25)}
+            </label>
+
+            <label className="flex justify-between border p-4 rounded-xl">
+              <div>
+                <input type="radio" checked={paymentOption === "full"} onChange={() => setPaymentOption("full")} />
+                Full Pay
+              </div>
+              ₹{selectedCar.price}
+            </label>
+
+          </div>
+
+          {/* Coupon */}
+          <div className="mt-4 flex gap-2">
+            <input
+              value={coupon}
+              onChange={(e) => setCoupon(e.target.value)}
+              placeholder="Coupon"
+              className="border p-2 rounded w-full"
+            />
+            <button className="bg-blue-600 text-white px-4 rounded">
+              Apply
+            </button>
+          </div>
+
+          <button className="mt-6 w-full bg-orange-500 text-white py-3 rounded-xl">
+            PROCEED
           </button>
         </div>
 

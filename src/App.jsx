@@ -8,6 +8,9 @@ import Pricing from './pages/Pricing.jsx';
 import Contact from './pages/Contact.jsx';
 import SignUp from './pages/SignUp.jsx';
 import Login from './pages/Login.jsx';
+import BookingForm from './components/BookingForm..jsx';
+import SelectCar from './components/SelectCar.jsx';
+import ConfirmBooking from './components/ConfirmBooking.jsx';
 
 function App() {
   return (
@@ -23,6 +26,13 @@ function App() {
             <Route path="/booking" element={<Booking />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<Contact />} />
+
+            <Route path="/" element={<BookingForm />} />
+            <Route path="/select-car" element={<SelectCar />} />
+            <Route path="/confirm-booking" element={<ConfirmBooking />} />
+
+
+
           </Routes>
         </main>
         <Footer />
