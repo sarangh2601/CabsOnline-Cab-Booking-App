@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Phone, Mail, MapPin, MessageCircle, Clock, Send } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
+import { CalendarDays } from "lucide-react";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -26,43 +28,48 @@ export default function Contact() {
     }
   };
 
+
   const contactMethods = [
     {
       icon: Phone,
-      title: 'Call Us',
-      description: 'Available 24/7 for support',
-      details: '+1 (234) 567-890',
-      color: 'from-primary to-blue-600',
+      title: "Call Us",
+      description: "Available 24/7 for support",
+      details: "+91 72630 08668",
+      color: "from-primary to-blue-600",
+      link: "tel:+917263008668", // 📞 Call
     },
     {
       icon: Mail,
-      title: 'Email Us',
-      description: 'We reply within 2 hours',
-      details: 'support@CabsOnline.com',
-      color: 'from-secondary to-orange-600',
+      title: "Email Us",
+      description: "We reply within 2 hours",
+      details: "infocabsonline@gmail.com",
+      color: "from-secondary to-orange-600",
+      link: "mailto:infocabsonline@gmail.com", // 📧 Email
     },
     {
-      icon: MessageCircle,
-      title: 'Live Chat',
-      description: 'Chat with our team instantly',
-      details: 'Available on our app',
-      color: 'from-blue-600 to-cyan-500',
+      icon: FaWhatsapp,
+      title: "Live Chat",
+      description: "Chat with our team instantly",
+      details: "Chat on WhatsApp",
+      color: "from-green-500 to-lime-500",
+      link: "https://wa.me/917263008668", // 💬 WhatsApp
     },
     {
       icon: Clock,
-      title: 'Office Hours',
-      description: 'Visit our office',
-      details: 'Mon-Fri: 9AM - 6PM',
-      color: 'from-amber-500 to-orange-500',
+      title: "Office Hours",
+      description: "Visit our office",
+      details: "Mon-Fri: 9AM - 6PM",
+      color: "from-amber-500 to-orange-500",
+      link: "#", // or "/contact" if you have page
     },
   ];
 
   const offices = [
     {
       city: 'New York',
-      address: '123 Main Street, New York, NY 10001',
-      phone: '+1 (234) 567-890',
-      email: 'ny@CabsOnline.com',
+      address: 'Nagpur, Maharashtra, India',
+      phone: '+91 72630 08668',
+      email: 'infocabsonline@gmail.com',
     }
   ];
 
@@ -83,15 +90,33 @@ export default function Contact() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
             {contactMethods.map((method, idx) => {
               const Icon = method.icon;
+
               return (
-                <div key={idx} className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all p-6 border border-gray-100 ">
-                  <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${method.color} flex items-center justify-center mb-4`}>
-                    <Icon size={24} className="text-white" />
+                <a
+                  key={idx}
+                  href={method.link} // 👈 add link here
+                  className="block"
+                >
+                  <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all p-6 border border-gray-100 hover:scale-[1.02]">
+
+                    <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${method.color} flex items-center justify-center mb-4`}>
+                      <Icon size={24} className="text-white" />
+                    </div>
+
+                    <h3 className="font-bold text-primary mb-1 text-base">
+                      {method.title}
+                    </h3>
+
+                    <p className="text-gray-600 text-xs mb-3">
+                      {method.description}
+                    </p>
+
+                    <p className="font-semibold text-gray-800 text-sm">
+                      {method.details}
+                    </p>
+
                   </div>
-                  <h3 className="font-bold text-primary mb-1 text-base">{method.title}</h3>
-                  <p className="text-gray-600 text-xs mb-3">{method.description}</p>
-                  <p className="font-semibold text-gray-800 text-sm">{method.details}</p>
-                </div>
+                </a>
               );
             })}
           </div>
@@ -202,7 +227,7 @@ export default function Contact() {
             </div>
 
             {/* Offices */}
-            <div className="space-y-6">
+            <div className="space-y-3">
 
               {/* Section Heading */}
               <div className="mb-8 space-y-4 flex flex-col justify-center">
@@ -217,30 +242,100 @@ export default function Contact() {
                 </p>
               </div>
 
-              {/* Office Cards */}
               {offices.map((office, idx) => (
                 <div
                   key={idx}
-                  className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all"
+                  className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-xl hover:shadow-2xl"
                 >
-                  <h3 className="text-lg font-bold text-white mb-4">
+                  {/* Title */}
+                  <h3 className="text-lg font-bold text-white mb-5 border-b border-white/20 pb-2">
                     {office.city}
                   </h3>
 
-                  <p className="text-gray-300 text-sm">{office.address}</p>
-                  <p className="text-gray-300 text-sm">{office.phone}</p>
-                  <p className="text-gray-300 text-sm">{office.email}</p>
+                  <div className="space-y-4">
+
+                    {/* Phone */}
+                    <a
+                      href={`tel:${office.phone}`}
+                      className="flex items-center gap-3 text-sm text-gray-200 hover:text-blue-300 transition"
+                    >
+                      <Phone size={18} />
+                      <span>{office.phone}</span>
+                    </a>
+
+                    {/* Email */}
+                    <a
+                      href={`mailto:${office.email}`}
+                      className="flex items-center gap-3 text-sm text-gray-200 hover:text-blue-300 transition"
+                    >
+                      <Mail size={18} />
+                      <span>{office.email}</span>
+                    </a>
+
+                    {/* Address */}
+                    <a
+                      href={`https://www.google.com/maps?q=${office.address}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 text-sm text-gray-200 hover:text-blue-300 transition"
+                    >
+                      <MapPin size={18} />
+                      <span className="break-words">{office.address}</span>
+                    </a>
+
+                  </div>
                 </div>
               ))}
 
+
               {/* Support */}
-              <div className="mt-8 p-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl">
-                <h3 className="font-bold text-white mb-4 text-lg">
+              <div className="
+  mt-3 p-6
+  bg-white/10 backdrop-blur-lg
+  border border-white/20
+  rounded-2xl
+  shadow-xl hover:shadow-2xl
+  transition-all hover:scale-[1.02]
+">
+
+                {/* Title */}
+                <h3 className="font-bold text-white mb-5 text-lg border-b border-white/20 pb-2">
                   Support Hours
                 </h3>
-                <p className="text-gray-300 text-sm">Mon - Fri: 9AM - 6PM</p>
-                <p className="text-gray-300 text-sm">Sat: 10AM - 4PM</p>
-                <p className="text-gray-300 text-sm">Sun: Emergency Only</p>
+
+                <div className="space-y-4">
+
+                  {/* Weekdays */}
+                  <div className="flex items-center gap-3 text-sm text-gray-200">
+                    <div className="p-2 bg-white/10 rounded-lg">
+                      <CalendarDays size={16} />
+                    </div>
+                    <span>
+                      <b>Mon - Fri:</b> 9AM - 6PM
+                    </span>
+                  </div>
+
+                  {/* Saturday */}
+                  <div className="flex items-center gap-3 text-sm text-gray-200">
+                    <div className="p-2 bg-white/10 rounded-lg">
+                      <Clock size={16} />
+                    </div>
+                    <span>
+                      <b>Sat:</b> 10AM - 4PM
+                    </span>
+                  </div>
+
+                  {/* Sunday */}
+                  <div className="flex items-center gap-3 text-sm text-gray-200">
+                    <div className="p-2 bg-white/10 rounded-lg">
+                      <Clock size={16} />
+                    </div>
+                    <span>
+                      <b>Sun:</b> Emergency Only
+                    </span>
+                  </div>
+
+                </div>
               </div>
 
             </div>

@@ -11,6 +11,7 @@ import Login from './pages/Login.jsx';
 import BookingForm from './components/BookingForm..jsx';
 import SelectCar from './components/SelectCar.jsx';
 import ConfirmBooking from './components/ConfirmBooking.jsx';
+import Confirmation from './components/Confirmation.jsx';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/about" element={<About />} />
             <Route path="/booking-details" element={<Booking />} />
+            <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<Contact />} />
 

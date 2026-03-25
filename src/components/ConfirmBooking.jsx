@@ -31,17 +31,16 @@ export default function ConfirmBooking() {
       paymentOption === "zero"
         ? 0
         : paymentOption === "part"
-        ? Math.round(selectedCar.price * 0.25)
-        : selectedCar.price;
+          ? Math.round(selectedCar.price * 0.25)
+          : selectedCar.price;
 
-    navigate("/booking-details", {
+    navigate("/confirmation", {
       state: {
         bookingData,
         selectedCar,
         paymentOption,
-        paidAmount,
       },
-    });
+    });;
   };
 
   return (
@@ -240,7 +239,7 @@ export default function ConfirmBooking() {
                 <div>
                   <p className="text-xs text-gray-500">Call Us</p>
                   <p className="font-semibold text-sm text-gray-800">
-                    +1 (234) 567-890
+                    +91 72630 08668
                   </p>
                 </div>
               </a>

@@ -65,16 +65,25 @@ const SelectCar = () => {
 
   return (
     <div className="w-full max-w-5xl mx-auto p-4 space-y-6 mt-15 mb-10">
-      
-      {/* Booking Info */}
-      <div className="bg-gray-100 p-4 rounded-xl flex flex-col sm:flex-row justify-between items-center">
-        <h2 className="text-lg font-semibold">
+
+      <div className="
+  bg-gray-100 p-4 sm:p-5 rounded-xl
+  flex flex-col gap-3
+  lg:flex-row lg:items-center lg:justify-between
+">
+
+        {/* LEFT: Title */}
+        <h2 className="text-base sm:text-lg font-semibold text-gray-800 break-words">
           {bookingData.tripType === "local"
             ? bookingData.city
-            : `${bookingData.pickupLocation} - ${bookingData.dropoffLocation}`}
+            : `${bookingData.pickupLocation} → ${bookingData.dropoffLocation}`}
         </h2>
 
-        <div className="text-sm text-gray-600 flex flex-wrap gap-4 mt-2 sm:mt-0">
+        {/* CENTER: Details */}
+        <div className="
+    text-xs sm:text-sm text-gray-600
+    flex flex-wrap gap-2 sm:gap-4
+  ">
           <span>Trip: <b>{bookingData.tripType}</b></span>
           <span>Date: <b>{bookingData.date}</b></span>
 
@@ -85,12 +94,19 @@ const SelectCar = () => {
           <span>Time: <b>{bookingData.time}</b></span>
         </div>
 
+        {/* RIGHT: Button */}
         <button
           onClick={() => navigate(-1)}
-          className="text-blue-600 underline text-sm"
+          className="
+      self-start lg:self-auto
+      text-blue-600 font-medium text-sm
+      hover:underline
+      transition
+    "
         >
           ← Go Back
         </button>
+
       </div>
 
       {/* Car List */}

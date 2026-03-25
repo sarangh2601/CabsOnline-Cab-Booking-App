@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <>
-      <CallToAction/>
+      <CallToAction />
       <footer className="bg-[url('bk-1.jpg')] bg-cover text-white relative overflow-hidden">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
@@ -49,19 +49,38 @@ export default function Footer() {
             </div>
 
             <div className="space-y-5">
-              <h4 className="text-lg font-bold mb-6 border-b pb-1 w-[60%]">Contact</h4>
-              <div className="flex items-center gap-3 text-sm">
+              <h4 className="text-lg font-bold mb-6 border-b pb-1 w-[60%]">
+                Contact
+              </h4>
+
+              {/* Phone */}
+              <a
+                href="tel:+917263008668"
+                className="flex items-center gap-3 text-sm hover:text-blue-300 transition"
+              >
                 <Phone className="text-white" size={20} />
-                <span>+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
+                <span>+91 72630 08668</span>
+              </a>
+
+              {/* Email */}
+              <a
+                href="mailto:infocabsonline@gmail.com"
+                className="flex items-center gap-3 text-sm hover:text-blue-300 transition"
+              >
                 <Mail className="text-white" size={20} />
-                <span>support@CabsOnline.com</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
+                <span>infocabsonline@gmail.com</span>
+              </a>
+
+              {/* Location */}
+              <a
+                href="https://www.google.com/maps?q=Nagpur,Maharashtra,India"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-sm hover:text-blue-300 transition"
+              >
                 <MapPin className="text-white" size={20} />
-                <span>123 City Street, Metro City</span>
-              </div>
+                <span>Nagpur, Maharashtra, India</span>
+              </a>
             </div>
           </div>
 
