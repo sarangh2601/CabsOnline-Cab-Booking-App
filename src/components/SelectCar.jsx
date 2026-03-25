@@ -10,33 +10,33 @@ const SelectCar = () => {
   const cars = [
     {
       id: 1,
-      name: "Wagon R",
+      name: "Hatchback",
       type: "4 seater AC Cab",
       price: 1366,
       extra: "+ ₹499 Charges and Taxes",
       rating: "4.7",
       kms: "63 kms included | Post limit: ₹15/km",
-      img: "https://imgd.aeplcdn.com/664x374/n/cw/ec/40432/wagonr-exterior-right-front-three-quarter.jpeg",
+      img: "WagonR-Img.png",
     },
     {
       id: 2,
-      name: "Toyota Etios",
+      name: "Sedan",
       type: "4 seater AC Cab",
       price: 1402,
       extra: "+ ₹501 Charges and Taxes",
       rating: "4.7",
       kms: "63 kms included | Post limit: ₹15/km",
-      img: "https://imgd.aeplcdn.com/664x374/n/cw/ec/40506/etios-exterior-right-front-three-quarter.jpeg",
+      img: "sadan.png",
     },
     {
       id: 3,
-      name: "Ertiga",
-      type: "6 seater AC Cab",
+      name: "SUV",
+      type: "4 seater AC Cab",
       price: 2016,
       extra: "+ ₹647 Charges and Taxes",
       rating: "4.7",
       kms: "63 kms included | Post limit: ₹16.5/km",
-      img: "https://imgd.aeplcdn.com/664x374/n/cw/ec/115777/ertiga-exterior-right-front-three-quarter.jpeg",
+      img: "SUV.png",
     },
   ];
 
@@ -101,7 +101,7 @@ const SelectCar = () => {
             className="bg-white rounded-xl shadow-md border flex flex-col sm:flex-row items-center justify-between p-4"
           >
             <div className="flex items-center gap-4 w-full sm:w-auto">
-              <img src={car.img} alt={car.name} className="w-32 object-contain" />
+              <img src={car.img} alt={car.name} className="w-40 object-contain" />
               <div>
                 <h3 className="font-semibold text-lg">
                   {car.name}{" "}

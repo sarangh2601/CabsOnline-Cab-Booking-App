@@ -1,135 +1,124 @@
-import { useState } from 'react';
-import { MapPin, Calendar, Users, Clock, Phone, Mail } from 'lucide-react';
-import BookingForm from '../components/BookingForm.';
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { MapPin, Clock, Trash2 } from "lucide-react";
 
 export default function Booking() {
-  const [bookingData, setBookingData] = useState({
-    pickup: '',
-    dropoff: '',
-    date: '',
-    time: '',
-    passengers: '1',
-    rideType: 'economy',
-  });
+  const location = useLocation();
+  const { bookingData, selectedCar, paymentOption, paidAmount } = location.state || {};
 
-  const [bookingStep, setBookingStep] = useState(0);
-  const [bookedRide, setBookedRide] = useState(null);
+  const [bookings, setBookings] = useState([]);
+  const [tab, setTab] = useState("upcoming");
 
-  const rideTypes = [
-    { id: 'economy', name: 'Economy', price: '$5.99', icon: '🚗', desc: 'Budget-friendly option' },
-    { id: 'comfort', name: 'Comfort', price: '$8.99', icon: '🚙', desc: 'More spacious & comfortable' },
-    { id: 'premium', name: 'Premium', price: '$12.99', icon: '🚕', desc: 'Luxury experience' },
-  ];
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setBookingData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleBooking = () => {
-    if (bookingData.pickup && bookingData.dropoff && bookingData.date && bookingData.time) {
-      setBookedRide({
-        ...bookingData,
-        bookingId: 'OC' + Math.random().toString(36).substr(2, 9).toUpperCase(),
-        estimatedFare: rideTypes.find(r => r.id === bookingData.rideType)?.price,
-      });
-      setBookingStep(2);
+  useEffect(() => {
+    if (bookingData && selectedCar) {
+      const newBooking = {
+        id: Date.now(),
+        pickup: bookingData.pickupLocation,
+        drop: bookingData.dropoffLocation,
+        date: bookingData.date,
+        time: bookingData.time,
+        tripType: bookingData.tripType,
+        carName: selectedCar.name,
+        price: paidAmount || selectedCar.price,
+        status: "upcoming",
+      };
+      setBookings((prev) => [newBooking, ...prev]);
     }
+  }, [bookingData, selectedCar, paidAmount]);
+
+  const cancelBooking = (id) => {
+    setBookings((prev) =>
+      prev.map((b) => (b.id === id ? { ...b, status: "canceled" } : b))
+    );
   };
 
-  const resetBooking = () => {
-    setBookingData({
-      pickup: '',
-      dropoff: '',
-      date: '',
-      time: '',
-      passengers: '1',
-      rideType: 'economy',
-    });
-    setBookingStep(0);
-    setBookedRide(null);
+  const filteredBookings = bookings.filter((b) =>
+    tab === "upcoming"
+      ? b.status === "upcoming"
+      : tab === "recent"
+      ? b.status === "recent"
+      : b.status === "history" || b.status === "canceled"
+  );
+
+  const statusColors = {
+    upcoming: "bg-blue-100 text-blue-700",
+    recent: "bg-green-100 text-green-700",
+    history: "bg-gray-100 text-gray-700",
+    canceled: "bg-red-100 text-red-700 line-through",
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* FULL WIDTH HEADER */}
-      <div className="relative w-screen h-[30vh] min-h-[300px] overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-yellow-50 p-4 sm:p-6">
+      <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-8">
+        Booking Details
+      </h1>
 
-        {/* BACKGROUND IMAGE */}
-        <img
-          src="FAQ.jpg" // replace with your image
-          alt="Cab Background"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-
-        {/* OVERLAY */}
-        <div className="absolute inset-0 bg-black/50"></div>
-
-        {/* CONTENT */}
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-bold text-white">
-            Book Your <span className="text-yellow-400">Ride</span>
-          </h1>
-          <p className="text-gray-200 mt-4 text-lg md:text-xl">
-            Fast, reliable & premium cab service
-          </p>
-        </div>
-
+      {/* Tabs */}
+      <div className="flex flex-wrap justify-center gap-4 mb-8">
+        {["upcoming", "recent", "history"].map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={`px-6 py-2 rounded-2xl font-semibold transition-all duration-300 ${
+              tab === t
+                ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg scale-105"
+                : "bg-white text-gray-600 border border-gray-200 hover:shadow-md hover:scale-105"
+            }`}
+          >
+            {t.charAt(0).toUpperCase() + t.slice(1)}
+          </button>
+        ))}
       </div>
 
-      {/* Booking Section */}
-      <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto ">
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Booking Form */}
-           <BookingForm/>
+      {/* Booking Cards */}
+      <div className="max-w-6xl mx-auto grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1">
+        {filteredBookings.length === 0 && (
+          <p className="text-center text-gray-500 col-span-full mt-10">
+            No bookings found in this section.
+          </p>
+        )}
 
-            {/* Sidebar */}
-            <div className="space-y-6">
-              {/* Current Booking Summary */}
-              <div className="bg-gradient-to-br from-blue-50 to-orange-50 rounded-2xl p-6 border border-blue-100">
-                <h3 className="font-bold text-primary mb-4 text-base">Booking Summary</h3>
-                <div className="space-y-3 text-sm">
-                  <div>
-                    <p className="text-gray-500 text-xs">From</p>
-                    <p className="font-semibold text-gray-800">{bookingData.pickup || 'Not selected'}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-500 text-xs">To</p>
-                    <p className="font-semibold text-gray-800">{bookingData.dropoff || 'Not selected'}</p>
-                  </div>
-                  {bookingData.date && (
-                    <div>
-                      <p className="text-gray-500 text-xs">Date & Time</p>
-                      <p className="font-semibold text-gray-800">{bookingData.date} at {bookingData.time || '--:--'}</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Contact Info */}
-              <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
-                <h3 className="font-bold text-primary mb-4 text-base">Need Help?</h3>
-                <div className="space-y-3">
-                  <a href="tel:1234567890" className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors">
-                    <Phone size={18} className="text-primary flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-gray-500">Call Us</p>
-                      <p className="font-semibold text-sm text-gray-800">+1 (234) 567-890</p>
-                    </div>
-                  </a>
-                  <a href="mailto:support@CabsOnline.com" className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors">
-                    <Mail size={18} className="text-primary flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-gray-500">Email</p>
-                      <p className="font-semibold text-sm text-gray-800">support@CabsOnline.com</p>
-                    </div>
-                  </a>
-                </div>
-              </div>
+        {filteredBookings.map((b) => (
+          <div
+            key={b.id}
+            className="relative bg-white/60 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 p-6 flex flex-col justify-between transition-transform duration-300 hover:scale-105"
+          >
+            {/* Header */}
+            <div className="flex justify-between items-start mb-4">
+              <h2 className="text-xl font-bold text-gray-800">{b.carName}</h2>
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-semibold ${statusColors[b.status]}`}
+              >
+                {b.status.charAt(0).toUpperCase() + b.status.slice(1)}
+              </span>
             </div>
+
+            {/* Details */}
+            <div className="space-y-2">
+              <p className="text-gray-600 flex items-center gap-2">
+                <MapPin size={16} />
+                {b.pickup} → {b.drop}
+              </p>
+              <p className="text-gray-600 flex items-center gap-2">
+                <Clock size={16} />
+                {b.date} | {b.time}
+              </p>
+              <p className="text-gray-800 font-semibold text-lg mt-2">
+                ₹{b.price}
+              </p>
+            </div>
+
+            {/* Cancel Button */}
+            {b.status === "upcoming" && (
+              <button
+                onClick={() => cancelBooking(b.id)}
+                className="mt-5 w-full flex justify-center items-center gap-2 px-4 py-2 bg-red-500 text-white font-semibold rounded-xl hover:bg-red-600 transition"
+              >
+                <Trash2 size={16} /> Cancel Booking
+              </button>
+            )}
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );
