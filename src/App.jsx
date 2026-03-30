@@ -24,17 +24,15 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/about" element={<About />} />
-            <Route path="/booking-details" element={<Booking />} />
+            <Route path="/booking" element={<Booking />} />
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<Contact />} />
 
             <Route path="/" element={<BookingForm />} />
+
             <Route path="/select-car" element={<SelectCar />} />
             <Route path="/confirm-booking" element={<ConfirmBooking />} />
-
-
-
           </Routes>
         </main>
         <Footer />
