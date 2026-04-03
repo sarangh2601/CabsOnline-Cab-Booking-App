@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
   CheckCircle,
   MapPin,
@@ -18,6 +19,34 @@ export default function Confirmation() {
   const navigate = useNavigate();
 
   const { bookingData, selectedCar, paymentOption } = location.state || {};
+
+  // POST booking to backend on component mount
+  useEffect(() => {
+    if (bookingData && selectedCar) {
+      const payload = {
+        pickupLocation: bookingData.pickupLocation,
+        dropoffLocation: bookingData.dropoffLocation,
+        date: bookingData.date,
+        time: bookingData.time,
+        carName: selectedCar.name,
+        fare: selectedCar.price,
+        paymentOption: paymentOption,
+        status: "Pending",
+      };
+
+      // Replace '1' with actual logged-in user ID if available
+      const userId = bookingData.userId || 1;
+
+      axios
+        .post(`http://localhost:8080/api/bookings/assign/${userId}`, payload)
+        .then((res) => {
+          console.log("Booking saved successfully:", res.data);
+        })
+        .catch((err) => {
+          console.error("Error saving booking:", err);
+        });
+    }
+  }, [bookingData, selectedCar, paymentOption]);
 
   if (!bookingData) {
     return (
@@ -41,7 +70,6 @@ export default function Confirmation() {
 
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-
             <div className="flex items-center gap-3">
               <CheckCircle className="text-green-600" size={32} />
               <h1 className="text-xl sm:text-2xl font-semibold text-gray-800">
@@ -51,7 +79,7 @@ export default function Confirmation() {
 
             <button
               onClick={() =>
-                navigate("/booking-details", {
+                navigate("/login", {
                   state: { bookingData, selectedCar, paymentOption },
                 })
               }
@@ -138,7 +166,6 @@ export default function Confirmation() {
 
         {/* RIGHT SIDEBAR */}
         <div className="bg-white rounded-3xl shadow-lg p-4 sm:p-6 space-y-6 border border-gray-100">
-
           <div>
             <h2 className="text-lg sm:text-xl font-semibold text-gray-800">Quick Info</h2>
             <p className="text-sm text-gray-500">Everything you need for your trip</p>

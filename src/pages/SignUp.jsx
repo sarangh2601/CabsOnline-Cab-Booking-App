@@ -1,22 +1,66 @@
 import { Mail, Lock, User, Phone } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaMicrosoft } from "react-icons/fa";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function Signup() {
+export default function SignUp() {
+
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: ""
+  });
+
+  // Handle input change
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.placeholder.toLowerCase().includes("name") ? "name" :
+        e.target.placeholder.toLowerCase().includes("email") ? "email" :
+          e.target.placeholder.toLowerCase().includes("phone") ? "phone" :
+            "password"]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/auth/signup",
+        formData
+      );
+
+      alert("User Registered Successfully ✅");
+
+      // 🔥 Navigate to login page
+      navigate("/login");
+
+    } catch (err) {
+      console.error(err);
+      alert("Signup Failed ❌");
+    }
+  };
+
   return (
     <div className="min-h-[650px] flex mt-10">
 
-      {/* LEFT SIDE (FORM NOW) */}
+      {/* LEFT SIDE */}
       <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-10 bg-gray-900">
 
-        {/* Glass Form */}
         <div className="w-full h-auto max-w-md bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-2xl shadow-2xl text-white">
 
           <h2 className="text-3xl font-bold mb-6 text-center">
             Create Account
           </h2>
 
-          <form className="space-y-4">
+          {/* ✅ Added onSubmit */}
+          <form className="space-y-4" onSubmit={handleSubmit}>
 
             {/* Name */}
             <div className="relative">
@@ -24,6 +68,7 @@ export default function Signup() {
               <input
                 type="text"
                 placeholder="Full Name"
+                onChange={handleChange}
                 className="w-full pl-10 pr-3 py-3 bg-white/20 border border-white/30 rounded-lg placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               />
             </div>
@@ -34,6 +79,7 @@ export default function Signup() {
               <input
                 type="email"
                 placeholder="Email"
+                onChange={handleChange}
                 className="w-full pl-10 pr-3 py-3 bg-white/20 border border-white/30 rounded-lg placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               />
             </div>
@@ -44,6 +90,7 @@ export default function Signup() {
               <input
                 type="tel"
                 placeholder="Phone Number"
+                onChange={handleChange}
                 className="w-full pl-10 pr-3 py-3 bg-white/20 border border-white/30 rounded-lg placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               />
             </div>
@@ -54,6 +101,7 @@ export default function Signup() {
               <input
                 type="password"
                 placeholder="Password"
+                onChange={handleChange}
                 className="w-full pl-10 pr-3 py-3 bg-white/20 border border-white/30 rounded-lg placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               />
             </div>
@@ -92,53 +140,53 @@ export default function Signup() {
         </div>
       </div>
 
-      {/* RIGHT SIDE (IMAGE + CONTENT SAME AS LOGIN LEFT) */}
-      <div className="hidden lg:flex w-1/2 relative items-center justify-center overflow-hidden">
+      {/* RIGHT SIDE (unchanged) */}
+     <div className="hidden lg:flex w-1/2 relative items-center justify-center overflow-hidden">
 
-        <div className="relative z-10 h-[650px] w-full flex flex-col items-center justify-center gap-10 p-20 sm:p-10 bg-gradient-to-br from-yellow-50 via-white to-yellow-100 shadow-xl">
+                <div className="relative h-[650px] z-10 w-full flex flex-col items-center justify-center gap-10 p-20 sm:p-10 bg-gradient-to-br from-yellow-50 via-white to-yellow-100 shadow-xl">
 
-          {/* IMAGE */}
-          <div className="w-full flex justify-center">
-            <img
-              src="/tct-1.png"
-              alt="Taxi"
-              className="w-full max-w-4xl object-contain drop-shadow-2xl"
-            />
-          </div>
+                    <div className="w-full flex justify-center">
+                        <img
+                            src="/tct-1.png"
+                            alt="Taxi"
+                            className="w-full max-w-4xl object-contain drop-shadow-2xl"
+                        />
+                    </div>
 
-          {/* CONTENT */}
-          <div className="max-w-2xl space-y-6 text-center">
+                    <div className="max-w-2xl space-y-6 text-center">
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-gray-800">
-              Join Us <span className="text-yellow-500">🚖</span>
-            </h1>
+                        <h1 className="text-3xl sm:text-5xl font-extrabold leading-tight text-gray-800">
+                            Welcome Back <span className="text-yellow-500">🚖</span>
+                        </h1>
 
-            <p className="text-gray-600 text-base sm:text-lg">
-              Create your account and start booking rides with our{" "}
-              <span className="text-yellow-500 font-semibold">
-                premium cab service
-              </span>.
-            </p>
+                        <p className="text-gray-600 text-base sm:text-lg">
+                            Book rides, manage trips, and travel smarter with our{" "}
+                            <span className="text-yellow-500 font-semibold">
+                                premium cab service
+                            </span>.
+                        </p>
 
-            <div className="flex flex-wrap justify-center gap-3">
-              <div className="px-4 py-2 bg-black text-white text-sm rounded-full shadow">
-                🚖 Fast Booking
-              </div>
-              <div className="px-4 py-2 bg-yellow-400 text-black text-sm rounded-full shadow">
-                💰 Affordable
-              </div>
-              <div className="px-4 py-2 bg-black text-white text-sm rounded-full shadow">
-                🛡️ Safe Ride
-              </div>
+                        <div className="flex flex-wrap justify-center gap-3">
+                            <div className="px-4 py-2 bg-black text-white text-sm rounded-full shadow">
+                                🚖 Fast Booking
+                            </div>
+
+                            <div className="px-4 py-2 bg-yellow-400 text-black text-sm rounded-full shadow">
+                                💰 Affordable
+                            </div>
+
+                            <div className="px-4 py-2 bg-black text-white text-sm rounded-full shadow">
+                                🛡️ Safe Ride
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div className="absolute w-72 h-72 bg-white/10 rounded-full top-10 left-10 blur-2xl"></div>
+                <div className="absolute w-96 h-96 bg-white/10 rounded-full bottom-10 right-10 blur-2xl"></div>
             </div>
-
-          </div>
-        </div>
-
-        {/* Decorative Shapes */}
-        <div className="absolute w-72 h-72 bg-white/10 rounded-full top-10 left-10 blur-2xl"></div>
-        <div className="absolute w-96 h-96 bg-white/10 rounded-full bottom-10 right-10 blur-2xl"></div>
-      </div>
     </div>
   );
 }

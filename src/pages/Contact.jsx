@@ -3,28 +3,43 @@ import { Phone, Mail, MapPin, MessageCircle, Clock, Send } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { CalendarDays } from "lucide-react";
 
-export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-  });
+import axios from "axios";
 
-  const [submitted, setSubmitted] = useState(false);
+export default function Contact() {
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: ""
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.name && formData.email && formData.message) {
-      setSubmitted(true);
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-      setTimeout(() => setSubmitted(false), 5000);
+
+    try {
+      await axios.post("http://localhost:8080/api/contact/send", formData);
+
+      alert("Message sent successfully ✅");
+
+      // Clear form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: ""
+      });
+
+    } catch (err) {
+      console.error(err);
+      alert("Failed to send message ❌");
     }
   };
 
@@ -135,14 +150,6 @@ export default function Contact() {
             {/* Form */}
             <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 sm:p-8 shadow-xl">
               <h2 className="text-3xl font-bold text-white mb-8">Send us a Message</h2>
-
-              {submitted && (
-                <div className="mb-6 p-4 bg-green-100/20 border border-green-400 rounded-lg">
-                  <p className="text-green-200 text-sm font-semibold">
-                    ✓ Message sent successfully! We'll get back to you soon.
-                  </p>
-                </div>
-              )}
 
               <form onSubmit={handleSubmit} className="space-y-5">
 

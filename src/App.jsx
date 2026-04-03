@@ -12,6 +12,7 @@ import BookingForm from './components/BookingForm..jsx';
 import SelectCar from './components/SelectCar.jsx';
 import ConfirmBooking from './components/ConfirmBooking.jsx';
 import Confirmation from './components/Confirmation.jsx';
+import UserDashboard from './pages/UserDashBoard.jsx';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/about" element={<About />} />
-            <Route path="/booking" element={<Booking />} />
+            <Route path="/userDashboard" element={<UserDashboard />} />
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<Contact />} />

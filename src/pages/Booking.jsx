@@ -1,12 +1,13 @@
 import React from "react";
 import BookingForm from "../components/BookingForm.";
+import Hero from "../components/Hero";
 
 export default function Booking() {
   return (
-    <div className="py-10 min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 text-gray-100 font-sans flex flex-col">
+    <div className="pt-10 min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 text-gray-100 font-sans flex flex-col">
 
       {/* INFO / TAGLINE */}
-      <div className="max-w-3xl mx-auto text-center mt-12 px-4">
+      <div className="max-w-3xl mx-auto text-center mt-12 px-4 py-10">
         <div className="inline-block px-4 py-1.5 rounded-full bg-yellow-100 text-yellow-700 text-xs font-semibold mb-4 animate-pulse">
           Premium Experience
         </div>
@@ -24,29 +25,7 @@ export default function Booking() {
         </p>
       </div>
 
-      {/* FORM + CAR SECTION */}
-      <div className="max-w-7xl mx-auto mt-12 px-4 w-full flex flex-col lg:flex-row gap-8">
-
-        {/* LEFT - FORM */}
-        <div className="w-full lg:w-1/2 rounded-2xl shadow-2xl p-8">
-          <h3 className="text-2xl font-bold text-yellow-400 mb-6 text-center drop-shadow-md">
-            Book Your Ride
-          </h3>
-          <BookingForm />
-        </div>
-
-        {/* RIGHT - CAR IMAGE */}
-        <div className="w-full lg:w-1/2 hidden lg:flex justify-center items-center">
-          <div className="overflow-hidden transform hover:scale-105 transition-transform duration-500 p-6 flex justify-center items-center">
-            <img
-              src="/tct-1.png"
-              alt="Premium Car"
-              className="w-[100%] h-auto max-w-md object-contain"
-            />
-          </div>
-        </div>
-
-      </div>
+      <Hero/>
     </div>
   );
 }
